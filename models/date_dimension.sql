@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 WITH CTE AS
 (
 
@@ -9,7 +11,7 @@ HOUR(TO_TIMESTAMP(STARTED_AT)) AS HOUR_STARTED_AT,
 
 CASE 
 WHEN DAYNAME(TO_TIMESTAMP(STARTED_AT)) IN ('Sat','Sun')
-THEN 'WEEKEND' ELSE 'Weekedn_Rename'END AS DAY_TYPE,
+THEN 'WEEKEND' ELSE 'Weekedn_Rename'END AS DATE_Day_TYPE,
 
 
 
