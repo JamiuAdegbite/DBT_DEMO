@@ -21,7 +21,7 @@ THEN 'WEEKEND' ELSE 'Weekedn_Rename'END AS DATE_Day_TYPE,
 
 
 from 
-{{ source('demo', 'bike') }}
+{{ ref('stg_bike') }}
 WHERE STARTED_AT != 'started_at'
     
 )
