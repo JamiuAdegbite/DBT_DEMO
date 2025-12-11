@@ -1,0 +1,29 @@
+{{ config(materialized='table') }}
+
+WITH CTE AS
+(
+
+SELECT
+
+TO_TIMESTAMP(STARTED_AT) AS STARTED_AT,
+DATE(TO_TIMESTAMP(STARTED_AT)) AS DATE_STARTED_AT,
+HOUR(TO_TIMESTAMP(STARTED_AT)) AS HOUR_STARTED_AT,
+
+CASE 
+WHEN DAYNAME(TO_TIMESTAMP(STARTED_AT)) IN ('Sat','Sun')
+THEN 'WEEKEND' ELSE 'Weekedn_Rename'END AS DATE_Day_TYPE,
+
+
+
+{{get_season('STARTED_AT')}} AS STATION_OF_YEAR2
+
+
+
+
+from 
+{{ ref('stg_bike') }}
+WHERE STARTED_AT != 'started_at'
+    
+)
+
+SELECT * FROM CTE
